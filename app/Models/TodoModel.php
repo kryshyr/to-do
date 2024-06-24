@@ -3,7 +3,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class Todo_model extends Model
+class TodoModel extends Model
 {
     protected $table = 'tasks';
     protected $primaryKey = 'id';

@@ -17,11 +17,14 @@
         }
 
         .todo-container {
+            
             background-color: #ffffff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 400px;
+            height: 500px;
+
         }
 
         .todo-container h1 {
@@ -30,6 +33,7 @@
         }
 
         .form-group {
+
             display: flex;
             align-items: center;
             margin-bottom: 20px;
@@ -53,6 +57,7 @@
         }
 
         .todo-container ul {
+
             list-style: none;
             padding: 0;
         }
@@ -62,7 +67,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            border-bottom: 1px solid #ccc;
+            border-bottom: 1px solid #ccc
         }
 
         .todo-container li:last-child {
@@ -83,11 +88,19 @@
         .todo-container li span {
             flex-grow: 1;
         }
+
+        .list-item{
+            width: 400px;
+            height: 350px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
     </style>
 
 </head>
 
 <body>
+
     <div class="todo-container">
         <h1>Todo List</h1>
         <form id="addTaskForm" method="post" action="<?= base_url('/todo/add'); ?>">
@@ -97,45 +110,48 @@
             </div>
         </form>
 
-        <ul id="todoList">
-            <?php
-            // Separate tasks into two arrays: completed and not completed
-            $completedTasks = [];
-            $notCompletedTasks = [];
-            // iterate over each tasks in the $tasks array
-            foreach ($tasks as $task) {
-                if ($task['is_done']) {
-                    $completedTasks[] = $task;
-                } else {
-                    $notCompletedTasks[] = $task;
+        <div class="list-item">
+            <ul id="todoList">
+                <?php
+                // Separate tasks into two arrays: completed and not completed
+                $completedTasks = [];
+                $notCompletedTasks = [];
+                // iterate over each tasks in the $tasks array
+                foreach ($tasks as $task) {
+                    if ($task['is_done']) {
+                        $completedTasks[] = $task;
+                    } else {
+                        $notCompletedTasks[] = $task;
+                    }
                 }
-            }
-            ?>
+                ?>
 
-            <!-- Display ongoing tasks first in ascending order of updated_at -->
-            <?php foreach ($notCompletedTasks as $task): ?>
-                <!-- to render each task as a list item -->
-                <li>
-                    <!-- check if the task is already done or is set to done-->
-                    <input type="checkbox" <?= $task['is_done'] ? 'checked' : '' ?>
-                        onclick="window.location.href='<?= base_url('todo/toggle/' . $task['id']); ?>'">
-                    <span><?= $task['task'] ?></span>
-                    <a href="<?= base_url('todo/edit/' . $task['id']); ?>">✏️</a>
-                    <button onclick="window.location.href='<?= base_url('todo/delete/' . $task['id']); ?>'">🗑️</button>
-                </li>
-            <?php endforeach; ?>
+                <!-- Display ongoing tasks first in ascending order of updated_at -->
+                <?php foreach ($notCompletedTasks as $task): ?>
+                    <!-- to render each task as a list item -->
+                    <li>
+                        <!-- check if the task is already done or is set to done-->
+                        <input type="checkbox" <?= $task['is_done'] ? 'checked' : '' ?>
+                            onclick="window.location.href='<?= base_url('todo/toggle/' . $task['id']); ?>'">
+                        <span><?= $task['task'] ?></span>
+                        <a href="<?= base_url('todo/edit/' . $task['id']); ?>">✏️</a>
+                        <button onclick="window.location.href='<?= base_url('todo/delete/' . $task['id']); ?>'">🗑️</button>
+                    </li>
+                <?php endforeach; ?>
 
-            <!-- Display completed tasks at the bottom -->
-            <?php foreach ($completedTasks as $task): ?>
-                <li>
-                    <input type="checkbox" <?= $task['is_done'] ? 'checked' : '' ?>
-                        onclick="window.location.href='<?= base_url('todo/toggle/' . $task['id']); ?>'">
-                    <span style="text-decoration: line-through;"><?= $task['task'] ?></span>
-                    <a href="<?= base_url('todo/edit/' . $task['id']); ?>">✏️</a>
-                    <button onclick="window.location.href='<?= base_url('todo/delete/' . $task['id']); ?>'">🗑️</button>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+                <!-- Display completed tasks at the bottom -->
+                <?php foreach ($completedTasks as $task): ?>
+                    <li>
+                        <input type="checkbox" <?= $task['is_done'] ? 'checked' : '' ?>
+                            onclick="window.location.href='<?= base_url('todo/toggle/' . $task['id']); ?>'">
+                        <span style="text-decoration: line-through;"><?= $task['task'] ?></span>
+                        <a href="<?= base_url('todo/edit/' . $task['id']); ?>">✏️</a>
+                        <button onclick="window.location.href='<?= base_url('todo/delete/' . $task['id']); ?>'">🗑️</button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+        <!-- <a href="<?= base_url('about/'); ?>">About Me</a> -->
     </div>
 </body>
 

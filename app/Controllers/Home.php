@@ -5,38 +5,38 @@ namespace App\Controllers;
 $db = \Config\Database::connect();
 class Home extends BaseController
 {
-    private $Todo_model;
+    private $TodoModel;
 
     public function __construct()
     {
-        $this->Todo_model = new \App\Models\Todo_model();
+        $this->TodoModel = new \App\Models\TodoModel();
     }
 
     public function index()
     {
         $data = [
-            'tasks' => $this->Todo_model->get_all_tasks()
+            'tasks' => $this->TodoModel->get_all_tasks()
         ];
         return view('todo', $data);
     }
     public function add()
     {
-        $this->Todo_model->add_task($this->request->getPost('task'));
+        $this->TodoModel->add_task($this->request->getPost('task'));
         return redirect()->to('/todo');
     }
     public function delete($id)
     {
-        $this->Todo_model->delete_task($id);
+        $this->TodoModel->delete_task($id);
         return redirect()->to('/todo');
     }
     public function toggle($id)
     {
-        $this->Todo_model->toggle_task($id);
+        $this->TodoModel->toggle_task($id);
         return redirect()->to('/todo');
     }
     public function edit($id)
     {
-        $task = $this->Todo_model->get_task($id);
+        $task = $this->TodoModel->get_task($id);
         $data = [
             'task' => $task
         ];
@@ -44,7 +44,7 @@ class Home extends BaseController
     }
     public function update($id)
     {
-        $this->Todo_model->update_task($id, $this->request->getPost('task'));
+        $this->TodoModel->update_task($id, $this->request->getPost('task'));
         return redirect()->to('/todo');
     }
 }
